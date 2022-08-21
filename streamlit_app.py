@@ -22,8 +22,12 @@ st.dataframe(fruit_to_show)
 
 # new section to display fruityvice api response
 st.header('FruityVice Fruit Advice!')
-fruit = 'kiwi'
-fruityvice_response = requests.get(f"https://www.fruityvice.com/api/fruit/{fruit}")
+
+# add user input
+fruit_choice = st.text_input("What fruit would you like information about?", "kiwi")
+st.write("The user entered ", fruit_choice)
+
+fruityvice_response = requests.get(f"https://www.fruityvice.com/api/fruit/{fruit_choice}")
 #st.text(fruityvice_response.json())
 
 # pandas normalise json to dataframe
