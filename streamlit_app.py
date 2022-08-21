@@ -10,5 +10,10 @@ st.text('🥑🍞 Avocado Toast')
 
 st.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
-my_fruit_list = pd.read_csv('https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt') 
+my_fruit_list = pd.read_csv('https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt')
+
+# let's put a ick list here so they can pick the fruit they want to include
+streamlit.multiselect("Pick some fruites:", list(my_fruit_list.index))
+
+# display the table on the page
 st.dataframe(my_fruit_list)
