@@ -23,8 +23,9 @@ st.dataframe(fruit_to_show)
 # new section to display fruityvice api response
 st.header('FruityVice Fruit Advice!')
 fruityvice_response = requests.get("https://www.fruityvice.com/api/fruit/watermelon")
-json_normalised = pd.json_normalize(st.text(fruityvice_response.json()))
+json_text = list(st.text(fruityvice_response.json()))
 
 # pandas normalise json to dataframe
+json_normalised = pd.json_normalize(json_text)
 
 st.dataframe(json_normalised)
