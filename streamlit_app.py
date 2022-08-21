@@ -21,5 +21,6 @@ fruit_to_show = my_fruit_list.loc[fruit_selected]
 st.dataframe(fruit_to_show)
 
 # new section to display fruityvice api response
+st.header('FruityVice Fruit Advice')
 fruityvice_response = requests.get("https://www.fruityvice.com/api/fruit/watermelon")
-st.text(fruityvice_response)
+st.text(fruityvice_response.json())
