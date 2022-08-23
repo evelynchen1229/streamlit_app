@@ -15,6 +15,7 @@ def show_list(conn):
     with conn.cursor() as my_cur:
         my_cur.execute("SELECT * from fruit_load_list")
         all_data = my_cur.fetchall()
+    conn.close()
     return all_data
 
 def add_to_list(new_fruit, conn):
@@ -27,6 +28,7 @@ def add_to_list(new_fruit, conn):
                 fruit_list[n] = "('" + fruit_list[n] + "')"
             new_fruit_list = ",".join(fruit_list)
             my_cur.execute(f"insert into fruit_load_list values {new_fruit_list}")
+    conn.close()
     return "Thanks for adding the fruit " + new_fruit
 
 
@@ -62,7 +64,7 @@ try:
 except URLError as e:
     st.error()
 
-st.header("The fruit load list contains:")
+st.header("View Our Fruit List - Add Your Favourites!")
 my_cnx = snowflake.connector.connect(**st.secrets["snowflake"])
 if st.button("Get Full Fruit List"):
     all_data = show_list(my_cnx)
