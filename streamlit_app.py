@@ -46,3 +46,6 @@ st.header("The fruit load list contains:")
 st.dataframe(my_data_row)
 all_data = my_cur.fetchall()
 st.dataframe(all_data)
+
+list_choice = st.text_input("What fruit would you like to add?")
+st.write(f"Thanks for adding{list_choice}")
