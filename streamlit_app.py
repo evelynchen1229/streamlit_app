@@ -4,6 +4,14 @@ import requests
 import snowflake.connector
 from urllib.error import URLError
 
+def fruit_table(fruit):
+    fruityvice_response = requests.get(f"https://www.fruityvice.com/api/fruit/{fruit}")
+    #st.text(fruityvice_response.json())
+    # pandas normalise json to dataframe
+    json_normalised = pd.json_normalize(fruityvice_response.json()).set_index("genus")
+    return json_normalised
+
+
 st.title('My Mum\'s New Healthy Dinner')
 st.header('Breakfast Favourites')
 st.text('🥣 Omega 3 & Blueberry Oatmeal')
@@ -31,11 +39,8 @@ try:
         st.error("Please select a fruit to get information.")
     else:
         st.write("The user entered ", fruit_choice)
-        fruityvice_response = requests.get(f"https://www.fruityvice.com/api/fruit/{fruit_choice}")
-        #st.text(fruityvice_response.json())
-        # pandas normalise json to dataframe
-        json_normalised = pd.json_normalize(fruityvice_response.json()).set_index("genus")
-        st.dataframe(json_normalised)
+        table = fruit_table(fruit_choice)
+        st.dataframe(table)
 except URLError as e:
     st.error()
 
