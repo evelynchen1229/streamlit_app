@@ -18,8 +18,15 @@ def show_list(conn):
     return all_data
 
 def add_to_list(new_fruit, conn):
+    fruit_list = new_fruit.split(",")
     with conn.cursor() as my_cur:
-        my_cur.execute(f"insert into fruit_load_list values ('{new_fruit}')")
+        if len(fruit_list) == 1:
+            my_cur.execute(f"insert into fruit_load_list values ('{new_fruit}')")
+        else:
+            for n in range(0, len(fruit_list)):
+                fruit_list[n] = "('" + fruit_list[n] + "')"
+            new_fruit_list = ",".join(fruit_list)
+            my_cur.execute(f"insert into fruit_load_list values {new_fruit_list}")
     return "Thanks for adding the fruit " + new_fruit
 
 
