@@ -8,7 +8,7 @@ def show_job_list(conn):
                 ''' SELECT DISTINCT job_name
                     FROM PROD.WORKSPACE_EVELYN_CHEN.EC_DBT_JOBS_SNAPSHOT
                     WHERE snapshot_date = (SELECT MAX(snapshot_date) FROM PROD.WORKSPACE_EVELYN_CHEN.EC_DBT_JOBS_SNAPSHOT)
-                        AND is_schedule = true
+                        AND is_scheduled = true
                     ORDER BY 1
                 '''
                 )
