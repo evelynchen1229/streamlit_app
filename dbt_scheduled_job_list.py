@@ -13,7 +13,7 @@ def show_job_list(conn):
                 '''
                 )
         job_list = my_cur.fetchall()
-        job_df = pd.DataFrame(job_list,columns = 'Job_Name')
+        job_df = pd.DataFrame(job_list,columns = ['Job_Name'])
     return job_df
 
 st.header('Scheduled dbt job - Minoro')
