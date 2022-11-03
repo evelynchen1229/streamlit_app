@@ -13,13 +13,14 @@ def show_job_list(conn):
                 '''
                 )
         job_list = my_cur.fetchall()
-    return job_list
+        job_df = pd.DataFrame(job_list,columns = 'Job_Name')
+    return job_df
 
 st.header('Scheduled dbt job - Minoro')
 st.title('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
-st.dataframe(dbt_list)
+st.dataframe(dbt_list,200,300)
 
 my_cnx.close()
 
