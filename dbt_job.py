@@ -5,7 +5,7 @@ import snowflake.connector
 import streamlit as st
 
 
-API_KEY = os.getenv('DBT_API_KEY')
+API_KEY = st.secrets['dbt_api_key']
 ACCOUNT_ID = 801
 
 DBT_JOB_PATTERN = 'https://cloud.getdbt.com/next/deploy/801/projects/1031/jobs/'
