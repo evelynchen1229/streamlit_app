@@ -28,14 +28,21 @@ st.header('Scheduled dbt job - Minoro')
 st.title('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
-
-# hide row indicies
-styler = dbt_list.style.hide_index()
-st.write(styler.to_html(), unsafe_follow_html = True)
-
 my_cnx.close()
 
-st.table(dbt_list)
+# hide row indicies
+# CSS to inject contained in a string
+hide_table_row_index = """
+            <style>
+            thead tr th:first-child {display:none}
+            tbody th {display:none}
+            </style>
+            """
+
+# Inject CSS with Markdown
+st.markdown(hide_table_row_index, unsafe_allow_html=True)
+
+st.dataframe(dbt_list)
 
 
 # add description and job URL, button to choose which index number / job name and which column the info is for
