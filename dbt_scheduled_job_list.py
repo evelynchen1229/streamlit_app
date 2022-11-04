@@ -41,4 +41,5 @@ st.dataframe(dbt_list.style.hide(axis='rows'))
 st.header('Update job description')
 job_updates = st.text_input('Please type in the job name or id for updating the description.')
 description_updates = st.text_input('Please write the new description below.')
-
+if st.button('Apply updates'):
+    st.text('Job description has been updated.')
