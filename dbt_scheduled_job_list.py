@@ -51,4 +51,4 @@ job_updates = st.text_input('Please type in the job name or id for updating the 
 description_updates = st.text_input('Please write the new description below.')
 if st.button('Apply updates'):
     st.text('Job description has been updated.')
-    update_job_description(my_conx, job_updates, description_updates)
+    update_job_description(my_cnx, job_updates, description_updates)
