@@ -8,9 +8,9 @@ def show_job_list(conn):
                 ''' SELECT DISTINCT
                         job_id
                         , job_name
-                        , job_link
-                        , is_scheduled
                         , description
+                        , is_scheduled
+                        , job_link
                     FROM PROD.WORKSPACE_EVELYN_CHEN.DBT_JOBS_MINORO
                     WHERE (job_name ilike '%api%'
                         OR job_name ilike '%prod%ga%' 
@@ -20,7 +20,7 @@ def show_job_list(conn):
                 '''
                 )
         job_list = my_cur.fetchall()
-        job_df = pd.DataFrame(job_list,columns = ['Job_ID','Job_Name','Job_Link','Is_Scheduled','Description'])
+        job_df = pd.DataFrame(job_list,columns = ['Job_ID','Job_Name','Description','Is_Scheduled','Job_Link'])
     return job_df
 
 # shows a table of current job names
@@ -28,7 +28,7 @@ st.header('Scheduled dbt job - Minoro')
 st.title('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
-st.dataframe(dbt_list,2000)
+st.dataframe(dbt_list)
 
 my_cnx.close()
 
