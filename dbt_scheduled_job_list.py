@@ -20,17 +20,27 @@ def show_job_list(conn):
                 '''
                 )
         job_list = my_cur.fetchall()
-        job_df = pd.DataFrame(job_list,columns = ['Job_ID','Job_Name','Description','Is_Scheduled','Job_Link'],index=False)
+        job_df = pd.DataFrame(job_list,columns = ['Job_ID','Job_Name','Description','Is_Scheduled','Job_Link'])
     return job_df
+
+# hide row incidies
+hide_table_row_indicies = '''
+    <style>
+    thread tr th:first-child {display:none}
+    tbody th {display:none}
+    </style>
+    '''
+st.markdown(hide_table_row_indicies, unsafe_allow_html=True)
 
 # shows a table of current job names
 st.header('Scheduled dbt job - Minoro')
 st.title('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
-st.dataframe(dbt_list)
-
 my_cnx.close()
+
+st.table(dbt_list)
+
 
 # add description and job URL, button to choose which index number / job name and which column the info is for
 # add a colunm for showing the current job status
