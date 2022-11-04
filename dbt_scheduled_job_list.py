@@ -5,17 +5,22 @@ import snowflake.connector
 def show_job_list(conn):
     with conn.cursor() as my_cur:
         my_cur.execute(
-                ''' SELECT DISTINCT job_name, job_link, description
+                ''' SELECT DISTINCT
+                        job_id
+                        , job_name
+                        , job_link
+                        , is_scheduled
+                        , description
                     FROM PROD.WORKSPACE_EVELYN_CHEN.DBT_JOBS_MINORO
-                    WHERE (job_name ilike '%api%
+                    WHERE (job_name ilike '%api%'
                         OR job_name ilike '%prod%ga%' 
-                        AND is_scheduled = true
+                        OR is_scheduled = true
                         )
                     ORDER BY 1
                 '''
                 )
         job_list = my_cur.fetchall()
-        job_df = pd.DataFrame(job_list,columns = ['Job_Name', 'JOB_LINK','DESCRIPTION'])
+        job_df = pd.DataFrame(job_list,columns = ['Job_ID','Job_Name','Job_Link','Is_Scheduled','Description'])
     return job_df
 
 # shows a table of current job names
