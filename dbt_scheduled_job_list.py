@@ -23,20 +23,16 @@ def show_job_list(conn):
         job_df = pd.DataFrame(job_list,columns = ['Job_ID','Job_Name','Description','Is_Scheduled','Job_Link'])
     return job_df
 
-# hide row incidies
-hide_table_row_indicies = '''
-    <style>
-    thread tr th:first-child {display:none}
-    tbody th {display:none}
-    </style>
-    '''
-st.markdown(hide_table_row_indicies, unsafe_allow_html=True)
-
 # shows a table of current job names
 st.header('Scheduled dbt job - Minoro')
 st.title('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
+
+# hide row indicies
+style = dbt_list.style.hide_index()
+st.write(styler.to_html(), unsafe_follow_html = True)
+
 my_cnx.close()
 
 st.table(dbt_list)
