@@ -47,8 +47,10 @@ st.dataframe(dbt_list)
 # add a colunm for showing the current job status
 
 st.header('Update job description')
-job_updates = st.text_input('Please type in the job name or id for updating the description.')
-description_updates = st.text_input('Please write the new description below.')
+job_updates = st.text_input('Please type in the job name or id for updating the description.','')
+description_updates = st.text_input('Please write the new description below.','')
 if st.button('Apply updates'):
-    st.text('Job description has been updated.')
+    st.text('Job description has been updated and you can refresh the page to see the change.')
     update_job_description(my_cnx, job_updates, description_updates)
+
+my_cnx.close()
