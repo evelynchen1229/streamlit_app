@@ -52,5 +52,3 @@ description_updates = st.text_input('Please write the new description below.')
 if st.button('Apply updates'):
     st.text('Job description has been updated.')
     update_job_description(my_conx, job_updates, description_updates)
-
-my_cnx.close()
