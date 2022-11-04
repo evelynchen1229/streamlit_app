@@ -20,17 +20,18 @@ job_links = []
 is_scheduled = []
 
 # snowflake set up
-engine = snowflake.connector.connect(**st.secrets['snowflake'])
+my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 
 def upload_to_snowflake(
         dataframe,
-        engine,
+        connection,
         table_name,
         truncate=False,
         create = True
         ):
 
-    with engine.connect() as con:
+    with connection.cursor() as con:
+        print('connect')
         if create:
             dataframe.to_sql(
                     name=table_name,
@@ -44,12 +45,12 @@ def upload_to_snowflake(
     con.close()
 
 def query_snowflake(
-        engine,
+        connection,
         table_name,
         database = SNOWFLAKE_DATABASE,
         schema = SNOWFLAKE_SCHEMA
         ):
-    with engine.connect() as con:
+    with connection.cursor() as con:
         sql = (
                 f''' SELECT *
                     FROM {database}.{schema}.{table_name}
@@ -86,13 +87,13 @@ def dbt_job_extraction(account_id=ACCOUNT_ID, api_key=API_KEY, table=SNOWFLAKE_T
     cols = df_current_job.columns
 
     try:
-        df_job_description = query_snowflake(engine,table) 
+        df_job_description = query_snowflake(my_cnx,table) 
         df_current_job_with_descripiton = df_current_job[cols[:-1]].merge(
                 df_job_description[['job_id','description']], on='job_id', how='left'
                 )
-        upload_to_snowflake(df_current_job_with_descripiton,engine,table)
+        upload_to_snowflake(df_current_job_with_descripiton,my_cnx,table)
     except:
         print('table does not exist')
-        upload_to_snowflake(df_current_job,engine,table)
+        upload_to_snowflake(df_current_job,my_cnx,table)
 
     engine.dispose()
