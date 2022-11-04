@@ -28,7 +28,7 @@ st.header('Scheduled dbt job - Minoro')
 st.title('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
-st.dataframe(dbt_list,200,3000)
+st.dataframe(dbt_list)
 
 my_cnx.close()
 
