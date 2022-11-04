@@ -32,7 +32,7 @@ my_cnx.close()
 
 # hide row indicies
 
-st.dataframe(dbt_list.style.hide_rows())
+st.dataframe(dbt_list.style.hide(axis='rows'))
 
 
 # add description and job URL, button to choose which index number / job name and which column the info is for
