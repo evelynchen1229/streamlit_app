@@ -31,16 +31,6 @@ dbt_list = show_job_list(my_cnx)
 my_cnx.close()
 
 # hide row indicies
-# CSS to inject contained in a string
-hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-            </style>
-            """
-
-# Inject CSS with Markdown
-st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 st.dataframe(dbt_list.style.hide_rows())
 
