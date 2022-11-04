@@ -24,8 +24,8 @@ def show_job_list(conn):
     return job_df
 
 # shows a table of current job names
-st.header('Scheduled dbt job - Minoro')
-st.title('View current scheduled dbt jobs')
+st.title('Scheduled dbt job - Minoro')
+st.header('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
 my_cnx.close()
@@ -37,3 +37,8 @@ st.dataframe(dbt_list.style.hide(axis='rows'))
 
 # add description and job URL, button to choose which index number / job name and which column the info is for
 # add a colunm for showing the current job status
+
+st.header('Update job description')
+job_updates = st.text_input('Please type in the job name or id for updating the description.')
+description_updates = st.text_input('Please write the new description below.')
+
