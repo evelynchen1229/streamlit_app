@@ -102,10 +102,9 @@ def dbt_job_extraction(account_id=ACCOUNT_ID, api_key=API_KEY, table=SNOWFLAKE_T
         df_current_job_with_descripiton = df_current_job[cols[:-1]].merge(
                 df_job_description[['job_id','description']], on='job_id', how='left'
                 )
-        upload_to_snowflake(df_current_job_with_descripiton,engine,table)
-        df_current_job_with_description.to_csv('testing.csv')
+        upload_to_snowflake(df_current_job_with_descripiton.drop_duplicates(),engine,table)
     except:
         print('table does not exist')
-        upload_to_snowflake(df_current_job,engine,table)
+        upload_to_snowflake(df_current_job.drop_duplicates(),engine,table)
     
     engine.dispose()
