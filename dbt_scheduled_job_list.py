@@ -30,7 +30,7 @@ my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
 
 # hide row indicies
-style = dbt_list.style.hide_index()
+styler = dbt_list.style.hide_index()
 st.write(styler.to_html(), unsafe_follow_html = True)
 
 my_cnx.close()
