@@ -30,7 +30,7 @@ hide_table_row_indicies = '''
     tbody th {display:none}
     </style>
     '''
-#st.markdown(hide_table_row_indicies, unsafe_allow_html=True)
+st.markdown(hide_table_row_indicies, unsafe_allow_html=True)
 
 # shows a table of current job names
 st.header('Scheduled dbt job - Minoro')
