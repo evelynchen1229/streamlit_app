@@ -1,11 +1,8 @@
 import requests
 import pandas as pd
 import numpy as np
-import os
 import snowflake.connector
-import sqlalchemy
-from sqlalchemy import create_engine
-from snowflake.sqlalchemy import URL
+import streamlit as st
 
 
 API_KEY = os.getenv('DBT_API_KEY')
@@ -23,16 +20,7 @@ job_links = []
 is_scheduled = []
 
 # snowflake set up
-engine = create_engine(
-        URL(account = os.getenv('SNOWFLAKE_ACCOUNT'), 
-            user = os.getenv('SNOWFLAKE_USER'),
-            password =os.getenv('SNOWFLAKE_PASSWORD'), 
-            role = 'RL_DPT',
-            warehouse = 'WH_DPT_XS',
-            database = SNOWFLAKE_DATABASE,
-            schema = SNOWFLAKE_SCHEMA
-            )
-)
+engine = snowflake.connector.connect(**st.secrets['snowflake'])
 
 def upload_to_snowflake(
         dataframe,
