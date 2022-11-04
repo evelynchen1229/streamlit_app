@@ -26,7 +26,7 @@ def show_job_list(conn):
 # hide row incidies
 hide_table_row_indicies = '''
     <style>
-    tbody th {display:none}
+    thread tr th:first-child {display:none}
     </style>
     '''
 st.markdown(hide_table_row_indicies, unsafe_allow_html=True)
