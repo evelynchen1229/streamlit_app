@@ -40,6 +40,7 @@ st.title('Scheduled dbt job - Minoro')
 st.header('View current scheduled dbt jobs')
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
+st.dataframe(dbt_list)
 
 
 # add description and job URL, button to choose which index number / job name and which column the info is for
@@ -52,3 +53,4 @@ if st.button('Apply updates'):
     st.text('Job description has been updated.')
     update_job_description(my_conx, job_updates, description_updates)
 
+my_cnx.close()
