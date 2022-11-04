@@ -26,7 +26,6 @@ def show_job_list(conn):
 # hide row incidies
 hide_table_row_indicies = '''
     <style>
-    thread tr th:first-child {display:none}
     tbody th {display:none}
     </style>
     '''
