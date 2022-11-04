@@ -42,7 +42,7 @@ hide_table_row_index = """
 # Inject CSS with Markdown
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
-st.dataframe(dbt_list)
+st.dataframe(dbt_list.style.hide_rows())
 
 
 # add description and job URL, button to choose which index number / job name and which column the info is for
