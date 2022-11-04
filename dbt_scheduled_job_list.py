@@ -1,10 +1,12 @@
 import streamlit as st
 import pandas as pd
 import snowflake.connector
+import dbt_job 
 
 snowflake_schema = 'WORKSPACE_EVELYN_CHEN'
 snowflake_table = 'DBT_JOBS_MINORO'
 cols = ['Job_ID','Job_Name','Description','Is_Scheduled','Job_Link']
+
 def show_job_list(conn, schema=snowflake_schema, table=snowflake_table):
     with conn.cursor() as my_cur:
         my_cur.execute(
@@ -35,9 +37,14 @@ def update_job_description(conn, job_name, job_description, schema=snowflake_sch
                 '''
                 )
 
+
 # shows a table of current job names
 st.title('Scheduled dbt job - Minoro')
 st.header('View current scheduled dbt jobs')
+
+if st.button('Get the latest scheduled dbt job list'):
+    dbt_job.dbt_job_extraction()
+
 my_cnx = snowflake.connector.connect(**st.secrets['snowflake'])
 dbt_list = show_job_list(my_cnx)
 st.dataframe(dbt_list)
