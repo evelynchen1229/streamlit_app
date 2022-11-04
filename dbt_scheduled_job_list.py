@@ -2,10 +2,6 @@ import streamlit as st
 import pandas as pd
 import snowflake.connector
 import dbt_job 
-import sqlalchemy
-from sqlalchemy import create_engine
-from snowflake.sqlalchemy import URL
-import requests
 
 snowflake_schema = 'WORKSPACE_EVELYN_CHEN'
 snowflake_table = 'DBT_JOBS_MINORO'
