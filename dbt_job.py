@@ -84,7 +84,7 @@ def dbt_job_extraction(account_id=ACCOUNT_ID, api_key=API_KEY, table=SNOWFLAKE_T
     for job in job_list:
         jobs.append(job['id'])
         job_names.append(job['name'])
-        job_links.append(DBT_JOB_PATTER+str(job['id'])) 
+        job_links.append(DBT_JOB_PATTERN+str(job['id'])) 
         is_scheduled.append(job['triggers']['schedule'])
     job_dict = {
             'job_id':jobs,
